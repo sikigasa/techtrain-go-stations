@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -51,6 +52,7 @@ func realMain() error {
 	mux := router.NewRouter(todoDB)
 
 	// TODO: サーバーをlistenする
-
+	// NOTE: ポート番号は上記のport変数を使用すること
+	log.Fatal(http.ListenAndServe(port, mux))
 	return nil
 }
