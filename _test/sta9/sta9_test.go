@@ -116,7 +116,7 @@ func TestStation9(t *testing.T) {
 			diff := cmp.Diff(got, want, cmpopts.IgnoreMapEntries(func(k string, v interface{}) bool {
 				switch k {
 				case "id":
-					vv, ok := v.(float64);
+					vv, ok := v.(float64)
 					if !ok {
 						t.Errorf("id を数値に変換できません, got = %s", k)
 					}
