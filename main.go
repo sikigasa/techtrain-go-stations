@@ -33,7 +33,6 @@ func realMain() error {
 	if dbPath == "" {
 		dbPath = defaultDBPath
 	}
-
 	// set time zone
 	var err error
 	time.Local, err = time.LoadLocation("Asia/Tokyo")
@@ -53,6 +52,8 @@ func realMain() error {
 
 	// TODO: サーバーをlistenする
 	// NOTE: ポート番号は上記のport変数を使用すること
-	log.Fatal(http.ListenAndServe(port, mux))
+	if err := http.ListenAndServe(port, mux); err != nil {
+		return err
+	}
 	return nil
 }

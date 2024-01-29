@@ -37,7 +37,6 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 		ID: ID,
 	}
 	s.db.QueryRowContext(ctx, confirm, ID).Scan(&todo.Subject, &todo.Description, &todo.CreatedAt, &todo.UpdatedAt)
-
 	return &todo, nil
 }
 
