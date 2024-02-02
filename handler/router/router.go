@@ -31,7 +31,8 @@ func todoRouter(mux *http.ServeMux, db *sql.DB) {
 		case http.MethodPost:
 
 			err = convertJson(todo.CreateTodo(w, r))
-		// case http.MethodGet:
+		case http.MethodGet:
+			err = convertJson(todo.ReadTodo(w, r))
 		case http.MethodPut:
 			err = convertJson(todo.UpdateTodo(w, r))
 
