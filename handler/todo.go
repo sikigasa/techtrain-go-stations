@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"reflect"
 
 	"github.com/TechBowl-japan/go-stations/model"
 	"github.com/TechBowl-japan/go-stations/service"
@@ -74,12 +75,15 @@ func (h *TODOHandler) UpdateTodo(w http.ResponseWriter, r *http.Request) (http.R
 		return w, http.StatusInternalServerError, nil
 	}
 
-	if request.Subject == "" {
+	if request.ID == 0 || request.Subject == "" {
 		return w, http.StatusBadRequest, nil
 	}
 
 	response, err := h.Update(context.Background(), &request)
 	if err != nil {
+		if reflect.TypeOf(err) == reflect.TypeOf(model.ErrNotFound{}) {
+			return w, http.StatusNotFound, nil
+		}
 		return w, http.StatusInternalServerError, nil
 	}
 	return w, http.StatusOK, response
