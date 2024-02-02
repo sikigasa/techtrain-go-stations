@@ -32,6 +32,9 @@ func todoRouter(mux *http.ServeMux, db *sql.DB) {
 
 			err = convertJson(todo.CreateTodo(w, r))
 		// case http.MethodGet:
+		case http.MethodPut:
+			err = convertJson(todo.UpdateTodo(w, r))
+
 		default:
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			convertJson(w, http.StatusMethodNotAllowed, fmt.Errorf("method not allowed"))
